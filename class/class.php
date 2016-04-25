@@ -12,10 +12,10 @@ class Conectar
     */
     
     public  $dbh;
-    private $_username = "andares";
-    private $_passwd = "4ndr3s";
-    private $_dns = "mysql:host=192.168.0.49;
-	dbname=srp";
+    private $_username = "root";
+    private $_passwd = "";
+    private $_dns = "mysql:host=localhost;
+	dbname=jproy";
     
     private static $_instance = null;
 

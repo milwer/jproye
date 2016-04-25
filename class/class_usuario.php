@@ -1,7 +1,6 @@
 <?php
 require_once("class.php");
-require_once ("./lib/resize/resize.php");
-class Funcionario
+class Usuario
 {
     //private $tipo;
     protected function  _getDbh()
@@ -57,46 +56,38 @@ class Funcionario
     }
     */
     /*Conexion Normal*/
-    /*
-    public function logueoAdmin($user, $pas)
+    
+    public function logueoAdmin($user, $pass)
     {
-        $sql1 = "SELECT a.n_codusuario, b.s_nombre, b.s_paterno, b.s_materno, a.s_nivel, a.ci FROM t_usuario as a, t_funcionario as b WHERE b.n_ci=a.ci and a.s_nombre = ? and a.s_password = ? and a.b_estado=1;";
+        var_dump($user, $pass);
+        $sql1 = "SELECT 
+                    *
+                 FROM 
+                    se_users 
+                 WHERE 
+                    username = ? and password = ?;";
         $stm1 = $this->_getDbh()->prepare($sql1);
         $stm1->BindParam(1, $user, PDO::PARAM_INT);
-        $stm1->BindParam(2, $pas, PDO::PARAM_INT);
+        $stm1->BindParam(2, $pass, PDO::PARAM_INT);
         $stm1->execute();
         $guardar1 = $stm1->fetch(PDO::FETCH_ASSOC);
-        if($guardar1 == FALSE)
-            {
-            $sql = "SELECT * FROM t_funcionario WHERE username = ? and password = ? and b_estado=1;";
-            $stm = $this->_getDbh()->prepare($sql);
-            $stm->BindParam(1, $user, PDO::PARAM_INT);
-            $stm->BindParam(2, $pas, PDO::PARAM_INT);
-            $stm->execute();
-            $guardar = $stm->fetch(PDO::FETCH_ASSOC);
-            if($guardar == TRUE)
-            {
-                $_SESSION["cedula"]=$guardar["n_ci"];
-                $_SESSION["nombre"]=$guardar["s_nombre"]." ".$guardar["s_paterno"]." ".$guardar["s_materno"];
-                header("Location: funcionario/index.php");
-                exit();
-            }else
-            {
-                header("Location: login.php?m=2");
-                exit();
+        var_dump($guardar1);
+        if($guardar1 == FALSE) {
+            header("Location: login.php?m=2");
+        } else {
+            $_SESSION["cod"]=$guardar1["user_id"];
+            $_SESSION["nivel"]=$guardar1["u_rol"];
+            $_SESSION["nombre"]=$guardar1["u_nombre"]." ".$guardar1["u_apellidoPat"]." ".$guardar1["u_apellidoMat"];
+            if($guardar1["u_rol"] == "admin"){
+                header("Location: adUsers.php");
+            } else {
+                header("Location: index.php");
             }
-        }else
-        {
-            $_SESSION["cod"]=$guardar1["n_codusuario"];
-            $_SESSION["nivel"]=$guardar1["s_nivel"];
-            $_SESSION["nombre"]=$guardar1["s_nombre"]." ".$guardar1["s_paterno"]." ".$guardar1["s_materno"];
-            //$_SESSION["ses_nombre"]=$guardar["nombre"];
-            header("Location: index.php");
+//$_SESSION["ses_nombre"]=$guardar["nombre"];
             exit();
-            //echo 'exito';die();
         }
     }
-    */
+    
     public function logueo($ci)
     {
         $sql = "SELECT s_nombre, s_paterno, s_materno, n_ci FROM t_funcionario WHERE n_ci= ? and b_estado=1;";
@@ -113,6 +104,7 @@ class Funcionario
             $_SESSION["cedula"]=$ci;
             $_SESSION["nombre"]=$guardar["s_nombre"]." ".$guardar["s_paterno"]." ".$guardar["s_materno"];
             //$_SESSION["ses_nombre"]=$guardar["nombre"];
+            
             header("Location: home.php");
             exit();
         }
