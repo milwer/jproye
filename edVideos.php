@@ -105,27 +105,20 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             </div>
         </div>
       <div class="row">
-        <div class="col-sm-4">
-      <div class="panel panel-primary">
-            <div class="panel-heading">Letra A</div>
-        <div class="panel-body"><img src="public/images/letter.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Descripcion A</div>
-      </div>
-    </div>
-                  <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Letra E</div>
-        <div class="panel-body"><img src="public/images/letter.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Descripcion E</div>
-      </div>
-    </div>
-                  <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Letra I</div>
-        <div class="panel-body"><img src="public/images/letter.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Descripcion I</div>
-      </div>
-    </div>
+          <div class="col-sm-6">
+            <div class="panel panel-primary">
+                  <div class="panel-heading">Letra A</div>
+              <div class="panel-body"></div>
+              <div class="panel-footer">Descripcion A</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Letra E</div>
+              <div class="panel-body"></div>
+              <div class="panel-footer">Descripcion E</div>
+            </div>
+          </div>
       </div>
               <div class="row">
         <div class="col-sm-4">

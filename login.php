@@ -44,7 +44,7 @@ if (isset($_POST["grabar"]) and $_POST["grabar"]=="si")
 
 </head>
 
-<body>
+<body style="background-image: url('public/images/sys_login.jpg');">
     <!--
 <div class="encabezado">
 </div>
