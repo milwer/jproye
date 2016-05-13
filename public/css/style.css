@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24-abr-2016, 11:09:17
+    Author     : Wilmer
+*/
+
+body {
+    background-image: url('../images/sys_body2.jpg');
+}
+
+.color_body {
+    background-color: #C6EAFF;
+}
+
+.color_content {
+    padding: 10px;
+    background-color: #F5F5F5;
+}
+
+.only_color_content {
+    background-color: #F5F5F5;
+}
+
+.title_h {
+    color: #3276B1;
+    text-align: center;
+}
+
+.formLitle {
+    height: 120px;
+}
+
+.title_header {
+    color: white;
+}
+
+.img_size{
+    width: 20px;
+    height: 20px;
+}
+
+.inbox_for_exer {
+    width: 20px;
+}
+
+.letter_exer {
+    font-weight: bold;
+}
+
+.inbox_for_exer_pal {
+    width: 40px;
+}
+
+.letter_bold{
+    font-weight: bold;
+    font-size:16px;
+}

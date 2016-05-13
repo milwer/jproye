@@ -7,65 +7,11 @@ class Usuario
     {
         return Conectar::getInstance()->getConn();
     }
-    /*LDAP*/
-    /*
-    public function logueoAdmin($user, $pas)
-    {
-        $sql1 = "SELECT a.n_codusuario, b.s_nombre, b.s_paterno, b.s_materno, a.s_nivel, a.ci FROM t_usuario as a, t_funcionario as b WHERE b.n_ci=a.ci and a.s_nombre = ? and a.s_password = ? and a.b_estado=1;";
-        $stm1 = $this->_getDbh()->prepare($sql1);
-        $stm1->BindParam(1, $user, PDO::PARAM_INT);
-        $stm1->BindParam(2, $pas, PDO::PARAM_INT);
-        $stm1->execute();
-        $guardar1 = $stm1->fetch(PDO::FETCH_ASSOC);
-        if($guardar1 == FALSE)
-        {
-            $adServer = "ldap://pge-dc1.procuraduria.gob.bo";
-            $ldap = ldap_connect($adServer);
-            $username = $user;
-            //$password = $password;
-            $ldaprdn = 'procuraduria' . "\\" . $username;
-            ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-            ldap_set_option($ldap, LDAP_OPT_REFERRALS, 0);
-            $bind = @ldap_bind($ldap, $ldaprdn, $pas);
-            if ($bind) {
-                $sql = "SELECT * FROM t_funcionario WHERE username = ? and b_estado=1;";
-                $stm = $this->_getDbh()->prepare($sql);
-                $stm->BindParam(1, $user, PDO::PARAM_INT);
-                $stm->execute();
-                $guardar = $stm->fetch(PDO::FETCH_ASSOC);
-                $_SESSION["cedula"]=$guardar["n_ci"];
-                $_SESSION["nombre"]=$guardar["s_nombre"]." ".$guardar["s_paterno"]." ".$guardar["s_materno"];
-                header("Location: funcionario/index.php");
-                exit();
-//                echo 'existe';die();
-            }else
-            {
-                header("Location: login.php?m=2");
-                exit();
-            }
-        }else
-        {
-            $_SESSION["cod"]=$guardar1["n_codusuario"];
-            $_SESSION["nivel"]=$guardar1["s_nivel"];
-            $_SESSION["nombre"]=$guardar1["s_nombre"]." ".$guardar1["s_paterno"]." ".$guardar1["s_materno"];
-            //$_SESSION["ses_nombre"]=$guardar["nombre"];
-            header("Location: index.php");
-            exit();
-            //echo 'exito';die();
-        }
-    }
-    */
-    /*Conexion Normal*/
-    
+    //Conexion Normal
     public function logueoAdmin($user, $pass)
     {
         var_dump($user, $pass);
-        $sql1 = "SELECT 
-                    *
-                 FROM 
-                    se_users 
-                 WHERE 
-                    username = ? and password = ?;";
+        $sql1 = "SELECT  * FROM se_users WHERE username = ? and password = ?;";
         $stm1 = $this->_getDbh()->prepare($sql1);
         $stm1->BindParam(1, $user, PDO::PARAM_INT);
         $stm1->BindParam(2, $pass, PDO::PARAM_INT);
@@ -83,7 +29,6 @@ class Usuario
             } else {
                 header("Location: index.php");
             }
-//$_SESSION["ses_nombre"]=$guardar["nombre"];
             exit();
         }
     }
@@ -129,68 +74,25 @@ class Usuario
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function getFormacion($ci)
+    public function getUsersAll()
     {
-        $sql = "SELECT * FROM t_formacionacademica WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetch(PDO::FETCH_ASSOC);
-    }
-    
-    public function getIdiomas($ci)
-    {
-        $sql = "SELECT * FROM t_idiomas WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetch(PDO::FETCH_ASSOC);
-    }
-    
-    public function getLugarDestino($ci)
-    {
-        $sql = "SELECT * FROM t_destino WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function getParientes($ci)
-    {
-        $sql = "SELECT * FROM t_pariente WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetch(PDO::FETCH_ASSOC);
-    }
-    
-    /*Todos los usuarios del sistema*/
-    public function getUserAll()
-    {
-        $sql = "SELECT a.n_ci, a.s_nombre, a.s_paterno, a.s_materno, b.s_cargo, a.b_estado FROM t_funcionario as a, t_destino as b WHERE a.n_ci=b.n_ci ORDER BY a.s_nombre ASC;";
-        $stm = $this->_getDbh()->prepare($sql);
+        $sSql = "SELECT * FROM se_users order by u_apellidoPat;";
+        $stm = $this->_getDbh()->prepare($sSql);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function getFuncionarioPorId($ci)
+    /////////////////********Function Old***************//////////////////////
+    public function getUserForId($sId)
     {
-        $sql = "SELECT * FROM t_funcionario WHERE n_ci=?;";
+        $sql = "SELECT * FROM se_users WHERE user_id=?;";
         $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
+        $stm->bindvalue(1, $sId, PDO::PARAM_STR);
         $stm->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function getMovimientosPorId($ci)
-    {
-        $sql = "SELECT * FROM t_movimiento_funcionario WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
+    
     
     
     public function getFuncionarioDatosPorId($ci)
@@ -264,41 +166,40 @@ class Usuario
         $datos = array('cant_a'=>$nro_a,'fecha_c'=>$fecha);
         return $datos;
     }
-    public function getCasAll($ci)
-    {
-        $sql = "SELECT * FROM cas WHERE n_ci=?;";
-        $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $ci, PDO::PARAM_STR);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
     /*Create*/
-    public function InsertFun($datos=array())
+    public function InsertUser($aDatos=array())
     {
         //print_r($datos);
         //exit();
         $sql = "insert "
-                . "into t_funcionario("
-                . "n_ci,"
-                . "s_expedido,"
-                . "s_nombre,"
-                . "s_paterno,"
-                . "s_materno,"
-                . "b_estado,"
+                . "into se_users("
+                . "u_ci,"
+                . "u_exp,"
+                . "u_nombre,"
+                . "u_apellidoPat,"
+                . "u_apellidoMat,"
+                . "u_estado,"
                 . "s_sexo,"
-                . "s_rutafoto,"
-                . "f_modificacion) values ("
-                . "?,?,?,?,?,?,?,?,?)";
+                . "u_discapacitado,"
+                . "u_modificacion,"
+                . "u_rol,"
+                . "username,"
+                . "password) "
+                . "values ("
+                . "?,?,?,?,?,?,?,?,?,?,?,?)";
         $stm = $this->_getDbh()->prepare($sql);
-        $stm->bindvalue(1, $datos["n_ci"], PDO::PARAM_STR);
-        $stm->bindvalue(2, $datos["s_expedido"], PDO::PARAM_STR);
-        $stm->bindvalue(3, $datos["s_nombre"], PDO::PARAM_STR);
-        $stm->bindvalue(4, $datos["s_paterno"], PDO::PARAM_STR);
-        $stm->bindvalue(5, $datos["s_materno"], PDO::PARAM_STR);
-        $stm->bindvalue(6, $datos["b_estado"], PDO::PARAM_STR);
-        $stm->bindvalue(7, $datos["s_sexo"], PDO::PARAM_STR);
-        $stm->bindvalue(8, $datos["s_rutafoto"], PDO::PARAM_STR);
-        $stm->bindvalue(9, date("Y-m-d"), PDO::PARAM_STR);
+        $stm->bindvalue(1, $aDatos["ci"], PDO::PARAM_INT);
+        $stm->bindvalue(2, $aDatos["exp"], PDO::PARAM_STR);
+        $stm->bindvalue(3, $aDatos["nombre"], PDO::PARAM_STR);
+        $stm->bindvalue(4, $aDatos["paterno"], PDO::PARAM_STR);
+        $stm->bindvalue(5, $aDatos["materno"], PDO::PARAM_STR);
+        $stm->bindvalue(6, $aDatos["estado"], PDO::PARAM_INT);
+        $stm->bindvalue(7, $aDatos["sexo"], PDO::PARAM_STR);
+        $stm->bindvalue(8, $aDatos["disc"], PDO::PARAM_INT);
+        $stm->bindvalue(9, date("Y-m-d H:m:s"), PDO::PARAM_STR);
+        $stm->bindvalue(10, $aDatos["rol"], PDO::PARAM_STR);
+        $stm->bindvalue(11, $aDatos["username"], PDO::PARAM_STR);
+        $stm->bindvalue(12, $aDatos["password"], PDO::PARAM_STR);
         $result = $stm->execute();
         return $result;
     }
