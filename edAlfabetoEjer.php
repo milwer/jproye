@@ -3,7 +3,41 @@ require_once 'class/class_usuario.php';
 //print_r($_SESSION);exit();
 if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
 {
+    //var_dump($_POST);
+    $oUser = new Usuario();
     require_once 'header.php';
+    if (isset($_POST["grabar"]) && $_POST["grabar"]=="si") {
+        $sRes = $oUser->getNoteByUser("Alfabeto", $_SESSION["cod"]);
+        //var_dump($sRes);
+        $iTotal = (int) $_POST["Ev1"] + (int) $_POST["Ev2"] + (int) $_POST["Ev3"] + (int) $_POST["Ev4"];
+        //var_dump($_POST);
+        //die("---");
+        if($sRes == FALSE){
+            //insert
+            $aData = array(
+                "descripcion" => "Alfabeto",
+                "user_id" => $_SESSION["cod"],
+                "puntuacion" => $iTotal,
+                "id_eje" => 1,
+            );
+            $sResIn = $oUser->insertNoteOfUser($aData);
+            if($sResIn == TRUE) {
+                echo "<script type='text/javascript'>alert('Se guardo exitosamente');</script>";
+                header("Location: index.php?m=4");
+            } else {
+                echo "<script type='text/javascript'>alert('Existe un error !!!!');</script>";
+            }
+        } else {
+            //update
+            $sResUp = $oUser->updateNoteOfUser($iTotal, "Alfabeto", $_SESSION["cod"]);
+            if($sResUp == TRUE) {
+                echo "<script type='text/javascript'>alert('Se guardo exitosamente');</script>";
+                header("Location: index.php?m=4");
+            } else {
+                echo "<script type='text/javascript'>alert('Existe un error !!!!');</script>";
+            }
+        }
+    }
 ?>
 <script type="text/javascript">
     function comprobar (sVal){
@@ -12,6 +46,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 var valor = document.getElementById("Ejer_1").value;
                 if(valor == "D" || valor == "d"){
                     alert("Correcto");
+                    document.getElementById("Ev1").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_1").value = "";
@@ -20,7 +55,8 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             case 'L':
                 var val1 = document.getElementById("Ejer_2").value;
                 if((val1 == "LL" || val1 == "ll")){
-                    alert("Correcto");    
+                    alert("Correcto");
+                    document.getElementById("Ev2").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_2").value = "";
@@ -29,7 +65,8 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             case 'M':
                 var val1 = document.getElementById("Ejer_3").value;
                 if(val1 == "M" || val1 == "m"){
-                    alert("Correcto");    
+                    alert("Correcto");
+                    document.getElementById("Ev3").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_3").value = "";
@@ -38,7 +75,8 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             case 'V':
                 var val1 = document.getElementById("Ejer_4").value;
                 if(val1 == "V" || val1 == "v"){
-                    alert("Correcto");    
+                    alert("Correcto");
+                    document.getElementById("Ev4").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_4").value = "";
@@ -59,17 +97,19 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
               </div>
             </div>
         </div>
-        
+        <form name="form" method="POST" action="">
         <div class="row">
             <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li><a href="index.php">INICIO</a></li>
                     <li><a href="edAlfabeto.php">ALFABETO</a></li>
                     <li class="active">EJERCICIOS</li>
+                    <li class="active"><a onclick="document.form.submit();" href="#">GUARDAR</a><input type="hidden" name="grabar" value="si" /></li>
                 </ol>
             </div>
         </div>
         <div class="color_content">
+            
             <div class="row">
                 <div class="col-sm-6">
                   <div class="panel panel-primary">
@@ -82,6 +122,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                             <span class="letter_exer">INOSAURIO</span>
                             &nbsp;&nbsp;&nbsp;
                             <input type="button" value="Revisar" onclick="comprobar('D');" name="Revisar"  />
+                            <input type="hidden" id="Ev1" name="Ev1" value="" />
                         </div>
                   </div>
                 </div>
@@ -97,6 +138,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                             <input type="text" id="Ejer_2" size="1" class="inbox_for_exer" value=""/>
                             <span class="letter_exer">AMA</span>
                             <input type="button" value="Revisar" onclick="comprobar('L');" name="Revisar"  />
+                            <input type="hidden" id="Ev2" name="Ev2" value="" />
                         </div>
                     </div>
                 </div>
@@ -114,6 +156,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                           <span class="letter_exer">ONO</span>
                           &nbsp;&nbsp;&nbsp;
                           <input type="button" value="Revisar" onclick="comprobar('M');" name="Revisar"  />
+                          <input type="hidden" id="Ev3" name="Ev3" value="" />
                       </div>
                     </div>
                 </div>
@@ -129,11 +172,13 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                             <span class="letter_exer">IOLIN</span>
                             &nbsp;&nbsp;&nbsp;
                             <input type="button" value="Revisar" onclick="comprobar('V');" name="Revisar"  />
+                            <input type="hidden" id="Ev4" name="Ev4" value="" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            </form>
     </div>
 <?php
 require_once 'footer.php';

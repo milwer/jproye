@@ -65,9 +65,6 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                                         <a href="ad_edit_user.php?id=<?php echo $aValue["user_id"]?>" title="Mover funcionario">
                                             <img class="img_size" src="public/images/icons/edit.png" />
                                         </a>
-                                        <a href="ad_del_user.php?id=<?php echo $aValue["user_id"]?>" title="Dar de baja">
-                                            <img class="img_size" src="public/images/icons/del.png" />
-                                        </a>
                                     <?php
                                     }
                                     ?>

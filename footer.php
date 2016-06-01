@@ -3,7 +3,7 @@
                 <p>Fecha:</p>
                 <p><?php echo date("F j, Y");?></p>
                 <p><strong>La Paz</strong></p>
-                <button class="btn btn-primary">Info</button>
+                <!--<button class="btn btn-primary">Info</button>-->
             </div>
             <!--
             <div class="well">

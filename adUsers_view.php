@@ -4,6 +4,7 @@ require_once 'class/class_curso.php';
 $oUser = new Usuario();
 if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] == "docente")) {
     $aData = $oUser->getUserForId($_GET["id"]);
+    $aNotas = $oUser->notasGetByUser($_GET["id"]);
     //var_dump($aData);
     //die();
     require_once 'header.php';
@@ -39,11 +40,6 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                             <ul>
                                 <li class="v-heading">
                                     Datos Usuario <span>(Ultima modificaci&oacute;n : <?php if($aData["u_modificacion"]=="") echo 'No se ha modificado el registro'; else echo $aData["u_modificacion"]; ?>)</span>
-                                </li>            
-                                <li>
-                                    <span class="item-key">Estado</span>
-                                    <div class="vcard-item">
-                                    </div>
                                 </li>
                                 <li>
                                     <span class="item-key">C. I. : </span>
@@ -81,9 +77,26 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                                     <span class="item-key">Tutor: </span>
                                     <div class="vcard-item"><?php if($aData["b_tutorNombre"]=="") echo 'No tiene tutor'; else echo $aData["b_tutorNombre"]; ?></div>
                                 </li>
-                                <li>
+                                <li><!--table table-hover tablesorter-->
                                     <span class="item-key">Evaluaciones : </span>
-                                    <div class="vcard-item">Vocales : 3 de 4 - Alfabeto 2 de 4<?php //echo $aData["u_nombre"]; ?></div>
+                                    <div class="vcard-item">
+                                        <table class="table" border="0">
+                                            <tr>
+                                                <th><center>Categoria</center></th>
+                                                <th><center>Nota</center></th>
+                                            </tr>
+                                            <?php
+                                            foreach ($aNotas as $sValue) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $sValue["descripcion"]; ?></td>
+                                                <td><?php echo $sValue["puntuacion"];?></td>
+                                            </tr>
+                                            <?php
+                                             }
+                                            ?>
+                                        </table>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

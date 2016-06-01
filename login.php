@@ -109,10 +109,10 @@ if (isset($_POST["grabar"]) and $_POST["grabar"]=="si")
                         </form>
                     </div>
                 </div>
-                <center>Nombre del Equipo:  <?php echo $maquina; ?>
+                <!--<center>Nombre del Equipo:  <?php echo $maquina; ?>
                 </center>
                 <center>Dirreccion IP : <?php echo $ip; ?>
-                </center> 
+                </center> -->
             </div>
         </div>
     </div>

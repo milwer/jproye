@@ -41,20 +41,37 @@
         <div class="row">
             <div class="col-sm-3 well">
                 <div class="well">
-                    <p><a href="">Mi cuenta</a></p>
+                    <p>Mi cuenta</p>
+                    <!--<p><a href="">Mi cuenta</a></p>-->
                     <img src="public/images/user.jpg" class="img-circle" height="65" width="65" alt="Avatar">
                 </div>
+                
                 <div class="well">
                     <p><a href="#"><?php echo 'Bienvenid@ : '.$_SESSION["nombre"]; ?></a></p>
                     <p>
-                        <span class="label label-default">Test</span>
-                        <span class="label label-primary">Contenidos</span>
-                        <span class="label label-success">y mas</span>
+                        <span class="label label-default">-- ACTIVIDADES --</span>
+                        <!--<span class="label label-primary">Contenidos</span>
+                        <span class="label label-success">y mas</span>-->
                     </p>
                 </div>
-                <div class="alert alert-success fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <p><strong>Hola!</strong></p>
-                    Bienvenido al sistema.
-                </div>
+               
+                <?php
+                if(isset($_GET["m"])){
+                ?>
+                    <div class="alert alert-success fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <p><strong>
+                        SE HA GUARDADO EL REGISTRO DE TUS EJERCICIOS CORRECTAMENTE</strong></p>
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <div class="alert alert-success fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <p><strong>Hola!</strong></p>
+                        Bienvenido al sistema.
+                    </div>
+                <?php
+                }
+                ?>
             </div>

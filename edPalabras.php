@@ -27,11 +27,48 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
         </div>
         <div class="color_content">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">- Palabras I -</div>
-                        <div class="panel-body"><img src="public/images/palabras/palabras1.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-                        <div class="panel-footer">Dias de la semana</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima1.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">POLLO</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">- Palabras I -</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima2.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">GATO</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">- Palabras I -</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima3.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">AEROPUERTO</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">- Palabras I -</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima5.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">MECANICO</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">- Palabras I -</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima6.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">PANADERO</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">- Palabras I -</div>
+                        <div class="panel-body"><img src="public/images/palabras/ima7.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">BORDE</div>
                     </div>
                 </div>
             </div>

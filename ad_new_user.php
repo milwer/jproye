@@ -19,6 +19,8 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
             'username'=>$_POST['username'],
             'password'=>$_POST['password'],
         );
+        //var_dump($aData);
+        //die("----");
         $sResult = $oUser->InsertUser($aData);
         if($sResult==TRUE) {
             header("Location: ad_new_user.php?m=1");

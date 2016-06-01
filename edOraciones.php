@@ -21,7 +21,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 <ol class="breadcrumb">
                     <li><a href="index.php">INICIO</a></li>
                     <li class="active">ORACIONES</li>
-                    <li><a href="edOracionesEjer.php">EJERCICIOS</a></li>
+                    <!--<li><a href="edOracionesEjer.php">EJERCICIOS</a></li>-->
                 </ol>
             </div>
         </div>
@@ -29,12 +29,13 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="row">
                 <div class="col-sm-12">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">- Ejemplo I -</div>
-                        <div class="panel-body"><img src="public/images/oraciones/oracion.gif" class="img-responsive" style="width:100%" alt="Image"></div>
-                        <div class="panel-footer">Palabra con 3 silabas</div>
+                        <div class="panel-heading">- EJEMPLO ORACI&Oacute;N-</div>
+                        <div class="panel-body"><img src="public/images/oraciones/oracion4.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">EL cuento de la caperucita y el lobo/div></div>
                     </div>
                 </div>
             </div>
+            <!--
             <div class="row">
                 <div class="col-sm-12">
                    <div class="panel panel-primary">
@@ -53,6 +54,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 <?php
