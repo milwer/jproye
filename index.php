@@ -12,7 +12,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante") {
             <div class="col-sm-12">
                 <div class="panel panel-default text-left">
                     <div class="panel-body">
-                        <center><h3>SISTEMA DE EDUCACION - ALTERNATIVA</h3></center>
+                        <center><h3>BIENVENIDOS AL MODULO DE APRENDIZAJE</h3></center>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,7 @@
 <?php
 require_once 'class/class_usuario.php';
 //print_r($_SESSION);exit();
-if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
-{
+if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante") {
     //var_dump($_POST);
     $oUser = new Usuario();
     require_once 'header.php';
@@ -92,7 +91,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="col-sm-12">
               <div class="panel panel-default text-left">
                 <div class="panel-body">
-                    <h3 class="title_h">SISTEMA DE EDUCACION - ALTERNATIVA</h3>
+                    <h3 class="title_h">BIENVENIDOS AL MODULO DE APRENDIZAJE</h3>
                 </div>
               </div>
             </div>
@@ -109,7 +108,6 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             </div>
         </div>
         <div class="color_content">
-            
             <div class="row">
                 <div class="col-sm-6">
                   <div class="panel panel-primary">

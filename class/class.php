@@ -13,7 +13,7 @@ class Conectar
     
     public  $dbh;
     private $_username = "root";
-    private $_passwd = "";
+    private $_passwd = "wilmer";
     private $_dns = "mysql:host=localhost;
 	dbname=jproy";
     

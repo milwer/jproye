@@ -82,22 +82,6 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                     document.getElementById("Ejer_4").value="";
                 }
             break;
-            /*case '5':
-                var val1 = document.getElementById("Ejer_5").value;
-                if(val1 == "Niña" || val1 == "niña" || val1 == "NIÑA"){
-                    alert("Correcto");    
-                } else {
-                    alert("Existe un error");
-                }
-            break;
-            case '6':
-                var val1 = document.getElementById("Ejer_6").value;
-                if(val1 == "Perro" || val1 == "perro" || val1 == "PERRO"){
-                    alert("Correcto");    
-                } else {
-                    alert("Existe un error");
-                }
-            break;*/
             default:
                 alert("no hay valores");
         }
@@ -108,7 +92,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="col-sm-12">
               <div class="panel panel-default text-left">
                 <div class="panel-body">
-                    <h3 class="title_h">SISTEMA DE EDUCACION - ALTERNATIVA</h3>
+                    <h3 class="title_h">BIENVENIDOS AL MODULO DE APRENDIZAJE</h3>
                 </div>
               </div>
             </div>

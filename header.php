@@ -23,7 +23,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <h3 class="title_header">Centro de Educacion -N-</h3>
+                <h3 class="title_header">SISTEMA DE EDUCACION - ALTERNATIVA</h3>
                 <!--
                 <a class="navbar-brand" href="#"><img height="30px" width="60px" src="public/images/sys_logo.png" /></a>
                 -->
