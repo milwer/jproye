@@ -59,3 +59,11 @@ body {
     font-weight: bold;
     font-size:16px;
 }
+
+.inbox_for_cont {
+    width: 105px;
+}
+
+.inbox_for_cont_file {
+    width: 115px;
+}

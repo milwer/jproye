@@ -30,11 +30,14 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
         <!-- contenido -->
        <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="ad_new_user.php"> + Agregar Usuario</a>
+                <ol class="breadcrumb">
+                    <li class="active">Inicio</li>
+                    <li ><a href="ad_new_user.php"> NUEVO USUARIO </a></li>
+                    <li ><a href="ad_new_content.php"> ADM. CONTENIDO </a></li>
+                </ol>
             </div>
             <!-- .panel-heading -->
             <div class="panel-body">
-                <br />
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>

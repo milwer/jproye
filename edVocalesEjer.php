@@ -1,10 +1,17 @@
 <?php
 require_once 'class/class_usuario.php';
+require_once 'class/class_curso.php';
 //print_r($_SESSION);exit();
 if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
 {
     $oUser = new Usuario();
+    $oCurso = new Curso();
+    $aCurso = $oCurso->getExerByCourse(1);
+    /*echo '<pre>';
+    var_dump($aCurso);
+    die("---");*/
     require_once 'header.php';
+    
     if(isset($_POST["grabar"]) && $_POST["grabar"]=="si"){
         $sRes = $oUser->getNoteByUser("Vocales", $_SESSION["cod"]);
         //var_dump($sRes);
@@ -36,12 +43,24 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
         }
     }
 ?>
+<input type="hidden" id="respI" name="respI" value="<?php echo $aCurso[0]["respuesta"]; ?>" />
+<input type="hidden" id="respII" name="respII" value="<?php echo $aCurso[1]["respuesta"]; ?>" />
+<input type="hidden" id="respIII" name="respIII" value="<?php echo $aCurso[2]["respuesta"]; ?>" />
+<input type="hidden" id="respIV" name="respIV" value="<?php echo $aCurso[3]["respuesta"]; ?>" />
 <script type="text/javascript">
     function comprobar (sVal){
+        var resI = document.getElementById("respI").value;
+        var resII = document.getElementById("respII").value;
+        var resIII = document.getElementById("respIII").value;
+        var resIV = document.getElementById("respIV").value;
+        resMayI = resI.toUpperCase();
+        resMayII = resII.toUpperCase();
+        resMayIII = resIII.toUpperCase();
+        resMayIV = resIV.toUpperCase();
         switch(sVal) {
             case 'A':
                 var valor = document.getElementById("Ejer_1").value;
-                if(valor == "A" || valor == "a"){
+                if(valor == resMayI || valor == resI){
                     alert("CORRECTO");
                     document.getElementById("Ev1").value="1";
                 } else {
@@ -51,19 +70,17 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 break;
             case 'E':
                 var val1 = document.getElementById("Ejer_2a").value;
-                var val2 = document.getElementById("Ejer_2b").value;
-                if((val1 == "E" || val1 == "e") && (val2 == "E" || val2 == "e")){
+                if(val1 == resMayII || val1 == resII){
                     alert("Correcto");
                     document.getElementById("Ev2").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_2a").value="";
-                    document.getElementById("Ejer_2b").value="";
                 }
             break;
             case 'I':
                 var val1 = document.getElementById("Ejer_3").value;
-                if(val1 == "I" || val1 == "i"){
+                if(val1 == resMayIII || val1 == resIII){
                     alert("Correcto");
                     document.getElementById("Ev3").value="1";
                 } else {
@@ -73,14 +90,12 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             break;
             case 'O':
                 var val1 = document.getElementById("Ejer_4a").value;
-                var val2 = document.getElementById("Ejer_4b").value;
-                if((val1 == "O" || val1 == "o") && (val2 == "O" || val2 == "o")){
+                if(val1 == resMayIV || val1 == resIV) {
                     alert("Correcto");
                     document.getElementById("Ev4").value="1";
                 } else {
                     alert("Existe un error");
                     document.getElementById("Ejer_4a").value="";
-                    document.getElementById("Ejer_4b").value="";
                 }
             break;
             default:
@@ -114,13 +129,13 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="row">
                 <div class="col-sm-6">
                   <div class="panel panel-primary">
-                        <div class="panel-heading">Ejercicio I</div>
+                        <div class="panel-heading"><?php echo $aCurso[0]["titulo"]; ?></div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/a.jpg" class="img-responsive" style="width:100%" alt="Image" />
+                            <img src="<?php echo $aCurso[0]["url"]; ?>" class="img-responsive" style="width:100%" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input name="Ejer_1" type="text" id="Ejer_1" size="1" class="inbox_for_exer" />
-                            <span class="letter_exer">BEJA</span>
+                            <span class="letter_exer"><?php echo $aCurso[0]["descripcion"]; ?></span>
                             &nbsp;&nbsp;&nbsp;
                             <input type="button" value="Revisar" onclick="comprobar('A');" name="Revisar"  />
                             <input type="hidden" id="Ev1" name="Ev1" value="" />
@@ -130,16 +145,14 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Ejercicio II
+                            <?php echo $aCurso[1]["titulo"]; ?>
                         </div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/e.jpg" class="img-responsive" style="width:85%" alt="Image" />
+                            <img src="<?php echo $aCurso[1]["url"]; ?>" class="img-responsive" style="width:85%" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" name="Ejer_2a" id="Ejer_2a" size="1" class="inbox_for_exer" value=""/>
-                            <span class="letter_exer">L</span>
-                            <input type="text" name="Ejer_2b" id="Ejer_2b" size="1" class="inbox_for_exer" value=""/>
-                            <span class="letter_exer">FANTE</span>
+                            <span class="letter_exer"><?php echo $aCurso[1]["descripcion"]; ?></span>
                             <input type="button" value="Revisar" onclick="comprobar('E');" name="Revisar"  />
                             <input type="hidden" id="Ev2" name="Ev2" value="" />
                         </div>
@@ -150,13 +163,13 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
-                      <div class="panel-heading">Ejercicio III</div>
+                      <div class="panel-heading"><?php echo $aCurso[2]["titulo"]; ?></div>
                       <div class="panel-body">
-                          <img src="public/images/exercices/i.jpg" class="img-responsive" style="width:100%" alt="Image" />
+                          <img src="<?php echo $aCurso[2]["url"]; ?>" class="img-responsive" style="width:100%" alt="Image" />
                       </div>
                       <div class="panel-footer">
                           <input type="text" name="Ejer_3" id="Ejer_3" size="1" class="inbox_for_exer" value=""/>
-                          <span class="letter_exer">GUANA</span>
+                          <span class="letter_exer"><?php echo $aCurso[2]["descripcion"]; ?></span>
                           &nbsp;&nbsp;&nbsp;
                           <input type="button" value="Revisar" onclick="comprobar('I');" name="Revisar"  />
                           <input type="hidden" id="Ev3" name="Ev3" value="" />
@@ -166,14 +179,13 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
 
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Ejercicio IV</div>
+                        <div class="panel-heading"><?php echo $aCurso[3]["titulo"]; ?></div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/o.jpg" class="img-responsive" style="width:55%" alt="Image" />
+                            <img src="<?php echo $aCurso[3]["url"]; ?>" class="img-responsive" style="width:55%" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" name="Ejer_4a" id="Ejer_4a" size="1" class="inbox_for_exer" value=""/>
-                            <span class="letter_exer">S</span>
-                            <input type="text" name="Ejer_4b" id="Ejer_4b" size="1" class="inbox_for_exer" value=""/>
+                            <span class="letter_exer"><?php echo $aCurso[3]["descripcion"]; ?></span>
                             &nbsp;&nbsp;&nbsp;
                             <input type="button" value="Revisar" onclick="comprobar('O');" name="Revisar"  />
                             <input type="hidden" id="Ev4" name="Ev4" value="" />
