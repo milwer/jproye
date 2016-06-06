@@ -3,15 +3,15 @@ require_once 'class/class_usuario.php';
 require_once 'class/class_curso.php';
 $oUser = new Usuario();
 $oCurso = new Curso();
-$aCurso = $oCurso->getExerByCourse(1);
+$aCurso = $oCurso->getExerByCourse(3);
 if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] == "docente")) {
     require_once 'header.php';
     
     if(isset($_POST["grabar"]) && !empty($_POST)) {
         if($_FILES["archivo"]["tmp_name"]!="") {
             echo 'nuevo';
-            copy($_FILES["archivo"]["tmp_name"], "public/images/exercices/vocales/".$_FILES["archivo"]["name"]);
-            $sPath = "public/images/exercices/vocales/".$_FILES["archivo"]["name"];
+            copy($_FILES["archivo"]["tmp_name"], "public/images/exercices/silabas/".$_FILES["archivo"]["name"]);
+            $sPath = "public/images/exercices/silabas/".$_FILES["archivo"]["name"];
         } else {
             echo 'existe';
             $sPath = $_POST['oldUrl'];
@@ -26,9 +26,9 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
         );
         $sRes = $oCurso->updateExer($aData);
         if($sRes==TRUE) {
-            header("Location: ad_new_content.php?m=1");
+            header("Location: ad_new_sil.php?m=1");
         } else {
-            header("Location: ad_new_content.php?m=2");
+            header("Location: ad_new_sil.php?m=2");
         }
         die();
         /*
@@ -61,8 +61,8 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                     <li><a href="adUsers.php">INICIO</a></li>
                     <li><a href="ad_new_content.php">ADMIN VOCALES</a></li>
                     <li><a href="ad_new_alf.php">ADMIN ALFABETO</a></li>
-                    <li><a href="ad_new_sil.php">ADM SILABAS</a></li>
-                    <li class="active">ADM PALABRAS</li>
+                    <li class="active">ADM SILABAS</li>
+                    <!--<li><a href="ad_new_pal.php">ADM PALABRAS</a></li>-->
                 </ol>
             </div>
             <!--start-->

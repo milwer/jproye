@@ -8,11 +8,6 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
     require_once 'header.php';
     
     if(isset($_POST["grabar"]) && !empty($_POST)){
-        /*echo '<pre>';
-        var_dump($_POST);
-        var_dump($_FILES);
-        die("===");*/
-     //var_dump($_FILES["foto"]["tmp_name"]);
         if($_FILES["archivo"]["tmp_name"]!="") {
             echo 'nuevo';
             copy($_FILES["archivo"]["tmp_name"], "public/images/exercices/vocales/".$_FILES["archivo"]["name"]);
@@ -21,7 +16,6 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
             echo 'existe';
             $sPath = $_POST['oldUrl'];
         }
-        ///die();
         $aData = array(
             'id'=>$_POST['id'],
             'titulo'=>$_POST['tit'],
@@ -66,7 +60,8 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                     <li><a href="adUsers.php">INICIO</a></li>
                     <li class="active">ADMIN VOCALES</li>
                     <li><a href="ad_new_alf.php">ADMIN ALFABETO</a></li>
-                    <li><a href="ad_new_pal.php">ADM PALABRAS</a></li>
+                    <li><a href="ad_new_sil.php">ADM SILABAS</a></li>
+                    <!--<li><a href="ad_new_pal.php">ADM PALABRAS</a></li>-->
                 </ol>
             </div>
             <!--start-->

@@ -26,11 +26,6 @@ class Curso
     
     public function updateExer($aDatos=array())
     {
-        /*
-            $sql = "UPDATE  t_funcionario 
-            SET n_ci=?, s_expedido=?, s_nombre=?, s_paterno=?, s_materno=?, b_estado=?,s_sexo=?, s_rutafoto = ?, f_modificacion = ?
-            WHERE NRO=?";
-         *          */
         try {
                     $sql = "UPDATE "
                     . "se_ejer_cont SET "
