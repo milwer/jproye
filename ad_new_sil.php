@@ -62,7 +62,7 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                     <li><a href="ad_new_content.php">ADMIN VOCALES</a></li>
                     <li><a href="ad_new_alf.php">ADMIN ALFABETO</a></li>
                     <li class="active">ADM SILABAS</li>
-                    <!--<li><a href="ad_new_pal.php">ADM PALABRAS</a></li>-->
+                    <li><a href="ad_new_pal.php">ADM PALABRAS</a></li>
                 </ol>
             </div>
             <!--start-->

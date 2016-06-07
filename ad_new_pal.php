@@ -3,44 +3,43 @@ require_once 'class/class_usuario.php';
 require_once 'class/class_curso.php';
 $oUser = new Usuario();
 $oCurso = new Curso();
-$aCurso = $oCurso->getExerByCourse(1);
+$aCurso = $oCurso->getExerByCourse(4);
 if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] == "docente")) {
     require_once 'header.php';
     
     if(isset($_POST["grabar"]) && !empty($_POST)) {
         if($_FILES["archivo"]["tmp_name"]!="") {
             echo 'nuevo';
-            copy($_FILES["archivo"]["tmp_name"], "public/images/exercices/vocales/".$_FILES["archivo"]["name"]);
-            $sPath = "public/images/exercices/vocales/".$_FILES["archivo"]["name"];
+            copy($_FILES["archivo"]["tmp_name"], "public/images/exercices/palabras/".$_FILES["archivo"]["name"]);
+            $sPath = "public/images/exercices/palabras/".$_FILES["archivo"]["name"];
         } else {
             echo 'existe';
             $sPath = $_POST['oldUrl'];
         }
-        ///die();
+        
+        if($_FILES["archivo2"]["tmp_name"]!="") {
+            echo 'nuevo';
+            copy($_FILES["archivo2"]["tmp_name"], "public/images/exercices/palabras/".$_FILES["archivo2"]["name"]);
+            $sPath2 = "public/images/exercices/palabras/".$_FILES["archivo2"]["name"];
+        } else {
+            echo 'existe';
+            $sPath2 = $_POST['oldUrl2'];
+        }
         $aData = array(
             'id'=>$_POST['id'],
             'titulo'=>$_POST['tit'],
-            'descripcion'=>$_POST['desc'],
+            'descripcion'=>"",
             'respuesta'=>$_POST['resp'],
-            'url'=> $sPath
+            'url'=> $sPath,
+            'url2'=> $sPath2
         );
         $sRes = $oCurso->updateExer($aData);
         if($sRes==TRUE) {
-            header("Location: ad_new_content.php?m=1");
+            header("Location: ad_new_pal.php?m=1");
         } else {
-            header("Location: ad_new_content.php?m=2");
+            header("Location: ad_new_pal.php?m=2");
         }
         die();
-        /*
-        //var_dump($aData);
-        //die("----");
-        $sResult = $oUser->InsertUser($aData);
-        if($sResult==TRUE) {
-            header("Location: ad_new_user.php?m=1");
-        } else {
-            header("Location: ad_new_user.php?m=2");
-        }
-        exit();*/
     }
 ?>
     <div class="col-sm-7">
@@ -92,9 +91,9 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                 <table class="table">
                     <tr>
                         <th>Titulo</th>
-                        <th>Descripcion</th>
                         <th>Respuesta</th>
                         <th>Imagen</th>
+                        <th>ImagenII</th>
                         <th>Opciones</th>
                     </tr>
                     <?php
@@ -102,17 +101,26 @@ if($_SESSION["nivel"] and ($_SESSION["nivel"] == "admin" || $_SESSION["nivel"] =
                     ?>
                     <form name="form" action="" method="post" enctype="multipart/form-data">
                         <tr>
-                            <td><input type="text" class="inbox_for_cont" name="tit" value="<?php echo $sValue["titulo"]; ?>" id=""/></td>
-                            <td><input type="text" class="inbox_for_cont" name="desc" value="<?php echo $sValue["descripcion"]; ?>" id=""/></td>
-                            <td><input type="text" class="inbox_for_cont" name="resp" value="<?php echo $sValue["respuesta"]; ?>" id=""/></td>
+                            <td>
+                                <input type="text" class="inbox_for_cont" name="tit" value="<?php echo $sValue["titulo"]; ?>" id=""/>
+                            </td>
+                            <td>
+                                <input type="text" class="inbox_for_cont" name="resp" value="<?php echo $sValue["respuesta"]; ?>" id=""/>
+                            </td>
                             <td>
                                 <img width="50px"  src="<?php echo $sValue["url"]; ?>" />
-                                <input type="file" class="inbox_for_cont_file" name="archivo" /></td>
+                                <input type="file" class="inbox_for_cont_file" name="archivo" />
+                            </td>
+                            <td>
+                                <img width="50px"  src="<?php echo $sValue["url2"]; ?>" />
+                                <input type="file" class="inbox_for_cont_file" name="archivo2" />
+                            </td>
                             <td>
                                 <input type="submit" value="Modificar" class="btn btn-primary" />
                                 <input type="hidden" name="grabar" value="si" />
                                 <input type="hidden" name="id" value="<?php echo $sValue["id_eje_cont"]; ?>" />
                                 <input type="hidden" name="oldUrl" value="<?php echo $sValue["url"]; ?>" />
+                                <input type="hidden" name="oldUrl2" value="<?php echo $sValue["url2"]; ?>" />
                             </td>
                         </tr>
                     </form>

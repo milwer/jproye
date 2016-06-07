@@ -27,29 +27,47 @@ class Curso
     public function updateExer($aDatos=array())
     {
         try {
-                    $sql = "UPDATE "
+            if (!empty($aDatos["url2"])) {
+                /*echo '<pre>';
+                var_dump($aDatos);
+                die("==");*/
+                //die("datos");
+                $sql = "UPDATE "
+                    . "se_ejer_cont SET "
+                    . "titulo = ?,"
+                    . "descripcion = ?,"
+                    . "respuesta = ?,"
+                    . "url = ?,"
+                    . "url2 = ? "
+                    . "WHERE id_eje_cont =?";
+                $stm = $this->_getDbh()->prepare($sql);
+                $stm->bindvalue(1, $aDatos["titulo"], PDO::PARAM_INT);//
+                $stm->bindvalue(2, $aDatos["descripcion"], PDO::PARAM_STR);
+                $stm->bindvalue(3, $aDatos["respuesta"], PDO::PARAM_STR);
+                $stm->bindvalue(4, $aDatos["url"], PDO::PARAM_STR);
+                $stm->bindvalue(5, $aDatos["url2"], PDO::PARAM_STR);
+                $stm->bindvalue(6, $aDatos["id"], PDO::PARAM_STR);
+                $result = $stm->execute();
+            } else {
+                //die("sin datos");
+                $sql = "UPDATE "
                     . "se_ejer_cont SET "
                     . "titulo = ?,"
                     . "descripcion = ?,"
                     . "respuesta = ?,"
                     . "url = ? "
                     . "WHERE id_eje_cont =?";
-            $stm = $this->_getDbh()->prepare($sql);
-            $stm->bindvalue(1, $aDatos["titulo"], PDO::PARAM_INT);//
-            $stm->bindvalue(2, $aDatos["descripcion"], PDO::PARAM_STR);
-            $stm->bindvalue(3, $aDatos["respuesta"], PDO::PARAM_STR);
-            $stm->bindvalue(4, $aDatos["url"], PDO::PARAM_STR);
-            $stm->bindvalue(5, $aDatos["id"], PDO::PARAM_STR);
-            $result = $stm->execute();
-            //$statement = $stm->prepare($sql);
-            
-            //var_dump($statement);
-            //die("====");
-            //errorCode
+                $stm = $this->_getDbh()->prepare($sql);
+                $stm->bindvalue(1, $aDatos["titulo"], PDO::PARAM_INT);//
+                $stm->bindvalue(2, $aDatos["descripcion"], PDO::PARAM_STR);
+                $stm->bindvalue(3, $aDatos["respuesta"], PDO::PARAM_STR);
+                $stm->bindvalue(4, $aDatos["url"], PDO::PARAM_STR);
+                $stm->bindvalue(5, $aDatos["id"], PDO::PARAM_STR);
+                $result = $stm->execute();
+            }
             return $result;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
-            die("==");
         }
     }
 }

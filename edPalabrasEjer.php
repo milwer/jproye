@@ -1,10 +1,12 @@
 <?php
 require_once 'class/class_usuario.php';
+require_once 'class/class_curso.php';
 //print_r($_SESSION);exit();
 if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
 {
-    //var_dump($_POST);
     $oUser = new Usuario();
+    $oCurso = new Curso();
+    $aCurso = $oCurso->getExerByCourse(4);
     require_once 'header.php';
     if (isset($_POST["grabar"]) && $_POST["grabar"]=="si") {
         $sRes = $oUser->getNoteByUser("Palabras", $_SESSION["cod"]);
@@ -39,12 +41,24 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
         }
     }
 ?>
+<input type="hidden" id="respI" name="respI" value="<?php echo $aCurso[0]["respuesta"]; ?>" />
+<input type="hidden" id="respII" name="respII" value="<?php echo $aCurso[1]["respuesta"]; ?>" />
+<input type="hidden" id="respIII" name="respIII" value="<?php echo $aCurso[2]["respuesta"]; ?>" />
+<input type="hidden" id="respIV" name="respIV" value="<?php echo $aCurso[3]["respuesta"]; ?>" />
 <script type="text/javascript">
     function comprobar (sVal){
+        var resI = document.getElementById("respI").value;
+        var resII = document.getElementById("respII").value;
+        var resIII = document.getElementById("respIII").value;
+        var resIV = document.getElementById("respIV").value;
+        resMayI = resI.toUpperCase();
+        resMayII = resII.toUpperCase();
+        resMayIII = resIII.toUpperCase();
+        resMayIV = resIV.toUpperCase();
         switch(sVal) {
             case '1':
                 var valor = document.getElementById("Ejer_1").value;
-                if(valor == "Auto" || valor == "auto" || valor == "carro" || valor == "Carro" || valor == "CARRO" || valor == "AUTO"){
+                if(valor == resI || valor == resMayI){
                     alert("Correcto");
                     document.getElementById("Ev1").value="1";
                 } else {
@@ -54,7 +68,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 break;
             case '2':
                 var val1 = document.getElementById("Ejer_2").value;
-                if(val1 == "Caballo" || val1 == "CABALLO" || val1 == "caballo"){
+                if(val1 == resII || resMayII){
                     alert("Correcto");
                     document.getElementById("Ev2").value="1";
                 } else {
@@ -64,7 +78,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             break;
             case '3':
                 var val1 = document.getElementById("Ejer_3").value;
-                if(val1 == "Arena" || val1 == "arena" || val1 == "ARENA"){
+                if(val1 == resIII || resMayIII){
                     alert("Correcto");
                     document.getElementById("Ev3").value="1";
                 } else {
@@ -74,7 +88,7 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             break;
             case '4':
                 var val1 = document.getElementById("Ejer_4").value;
-                if(val1 == "Bicho" || val1 == "bicho" || val1 == "BICHO" || val1 == "insecto" || val1 == "Insecto" || val1 == "INSECTO"){
+                if(val1 == resIV || resMayIV){
                     alert("Correcto");
                     document.getElementById("Ev4").value="1";
                 } else {
@@ -112,10 +126,10 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="row">
                 <div class="col-sm-6">
                   <div class="panel panel-primary">
-                        <div class="panel-heading">Ejercicio I</div>
+                        <div class="panel-heading"><?php echo $aCurso[0]["titulo"]; ?></div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/palabras/carro.png" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
-                            <img src="public/images/exercices/palabras/carro.jpg" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[0]["url"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[0]["url2"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" id="Ejer_1" size="1" class="inbox_for_exer_pal" value=""/>
@@ -127,11 +141,11 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Ejercicio II
+                            <?php echo $aCurso[1]["titulo"]; ?>
                         </div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/palabras/caballo.png" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
-                            <img src="public/images/exercices/palabras/caballo.jpg" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[1]["url"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[1]["url2"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" id="Ejer_2" size="1" class="inbox_for_exer_pal" value=""/>
@@ -145,11 +159,10 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Ejercicio III</div>
+                        <div class="panel-heading"><?php echo $aCurso[2]["titulo"]; ?></div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/palabras/arena.png" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
-                            <img src="public/images/exercices/palabras/arena.jpg" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
-                            
+                            <img src="<?php echo $aCurso[2]["url"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[2]["url2"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" id="Ejer_3" size="1" class="inbox_for_exer_pal" value=""/>
@@ -160,10 +173,10 @@ if($_SESSION["nivel"] and $_SESSION["nivel"] == "estudiante")
                 </div>
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Ejercicio IV</div>
+                        <div class="panel-heading"><?php echo $aCurso[3]["titulo"]; ?></div>
                         <div class="panel-body">
-                            <img src="public/images/exercices/palabras/bicho.png" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
-                            <img src="public/images/exercices/palabras/bicho.jpg" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[3]["url"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
+                            <img src="<?php echo $aCurso[3]["url2"]; ?>" class="img-responsive" style="width:100%;height: 190px;" alt="Image" />
                         </div>
                         <div class="panel-footer">
                             <input type="text" id="Ejer_4" size="1" class="inbox_for_exer_pal" value=""/>
